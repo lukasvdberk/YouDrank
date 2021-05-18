@@ -41,6 +41,7 @@
                 android:id="@+id/add250ml_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="13sp"
                 android:text="@string/add250ml" />
 
         </LinearLayout>
@@ -63,6 +64,7 @@
                 android:id="@+id/add500ml_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="13sp"
                 android:text="@string/add500ml" />
 
         </LinearLayout>
@@ -86,28 +88,33 @@
                 android:id="@+id/add1l_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/add1L" />
+                android:text="@string/add1L"
+                android:textSize="13sp" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
         android:orientation="horizontal"
         android:weightSum="5"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        android:layout_marginStart="10dp">
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
-            android:weightSum="1"
-            android:layout_width="200dp"
+            android:id="@+id/customWaterIntakeMLInput"
+            android:layout_width="303dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:autofillHints="100"
-            android:inputType="number"
             android:hint="@string/custom_amount"
+            android:inputType="number"
+            android:weightSum="1"
             tools:ignore="LabelFor" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/customWaterIntakeMLInputBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_custom_amount"

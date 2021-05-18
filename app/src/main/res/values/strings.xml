@@ -2,9 +2,9 @@
     <string name="app_name">YouDrank</string>
     <string name="title_home">Water intake</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="add250ml">Add 250 ML</string>
-    <string name="add500ml">Add 500 ML</string>
-    <string name="add1L">Add 1 L</string>
+    <string name="add250ml">Add 250ML</string>
+    <string name="add500ml">Add 500ML</string>
+    <string name="add1L">Add 1L</string>
     <string name="custom_amount">Enter custom amount</string>
-    <string name="add_custom_amount">Add custom amount</string>
+    <string name="add_custom_amount">Add</string>
 </resources>
