@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">YouDrank</string>
-    <string name="title_home">Home</string>
+    <string name="title_home">Water intake</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="add250ml">Add 250 ML</string>
+    <string name="add500ml">Add 500 ML</string>
+    <string name="add1L">Add 1 L</string>
+    <string name="custom_amount">Enter custom amount</string>
+
 </resources>
