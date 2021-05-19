@@ -20,6 +20,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.youdrank.R;
+import com.example.youdrank.controllers.SettingsController;
 import com.example.youdrank.controllers.WaterIntakeController;
 import com.example.youdrank.databinding.FragmentHomeBinding;
 import com.example.youdrank.models.WaterIntake;
@@ -30,6 +31,8 @@ import java.util.Date;
 
 public class HomeFragment extends Fragment {
     WaterIntakeController waterIntakeController;
+    SettingsController settingsController;
+
     protected View mView;
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
@@ -43,7 +46,9 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
         mView = root;
 
-        waterIntakeController = new WaterIntakeController(getContext());
+        waterIntakeController = new WaterIntakeController(mView.getContext());
+        settingsController = new SettingsController(mView.getContext());
+
         setupEventListeners();
         try {
             updateTotalWaterInTakeOfToday();
@@ -98,7 +103,7 @@ public class HomeFragment extends Fragment {
 
         ProgressBar progressBar = mView.findViewById(R.id.waterIntakeProgress);
 
-        progressBar.setMax(2000);
+        progressBar.setMax(settingsController.getSettings().getWaterIntakeInMLGoalPerDay());
         progressBar.setProgress(totalWaterIntakeOfToday.getInTakeInMilliliter(), true);
 
         TextView waterIntakeText = mView.findViewById(R.id.waterIntake);
