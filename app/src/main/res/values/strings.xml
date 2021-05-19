@@ -4,6 +4,8 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_settings">Settings</string>
     <string name="water_intake_placeholder">Your daily goal in ml</string>
+    <string name="update_settings">Update settings</string>
+    <string name="settings">Your settings</string>
     <string name="add250ml">Add 250ML</string>
     <string name="add500ml">Add 500ML</string>
     <string name="add1L">Add 1L</string>
