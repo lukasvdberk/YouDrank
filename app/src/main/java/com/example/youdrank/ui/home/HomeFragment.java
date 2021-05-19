@@ -1,17 +1,20 @@
 package com.example.youdrank.ui.home;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -31,6 +34,7 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
@@ -50,6 +54,7 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void setupEventListeners() {
         Button add250mlBtn = mView.findViewById(R.id.add250ml_button);
         Button add500lBtn = mView.findViewById(R.id.add500ml_button);
@@ -73,6 +78,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void saveWaterIntake(int waterIntakeInMl) {
         WaterIntake waterIntake = new WaterIntake(waterIntakeInMl, new Date());
         waterIntakeController.addWaterIntake(waterIntake);
@@ -85,9 +91,15 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void updateTotalWaterInTakeOfToday() throws ParseException {
         WaterIntakeOfToday waterIntakeOfToday = waterIntakeController.getAllIntakesOfToday();
         WaterIntake totalWaterIntakeOfToday = waterIntakeOfToday.getTotalWaterIntakeOfToday();
+
+        ProgressBar progressBar = mView.findViewById(R.id.waterIntakeProgress);
+
+        progressBar.setMax(2000);
+        progressBar.setProgress(totalWaterIntakeOfToday.getInTakeInMilliliter(), true);
 
         TextView waterIntakeText = mView.findViewById(R.id.waterIntake);
         waterIntakeText.setText(String.format("%d ML", totalWaterIntakeOfToday.getInTakeInMilliliter()));
