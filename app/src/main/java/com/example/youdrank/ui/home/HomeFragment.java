@@ -20,7 +20,9 @@ import com.example.youdrank.R;
 import com.example.youdrank.controllers.WaterIntakeController;
 import com.example.youdrank.databinding.FragmentHomeBinding;
 import com.example.youdrank.models.WaterIntake;
+import com.example.youdrank.models.WaterIntakeOfToday;
 
+import java.text.ParseException;
 import java.util.Date;
 
 public class HomeFragment extends Fragment {
@@ -36,10 +38,14 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         mView = root;
-//        this.mView = inflater.inflate(R.layout.fragment_home, container, false);
 
         waterIntakeController = new WaterIntakeController(getContext());
         setupEventListeners();
+        try {
+            updateTotalWaterInTakeOfToday();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         return root;
     }
@@ -72,10 +78,19 @@ public class HomeFragment extends Fragment {
         waterIntakeController.addWaterIntake(waterIntake);
 
         showToast(String.format("Added %s ml to your water intake!", waterIntakeInMl));
+        try {
+            updateTotalWaterInTakeOfToday();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void updateTotalWaterInTakeOfToday() {
+    private void updateTotalWaterInTakeOfToday() throws ParseException {
+        WaterIntakeOfToday waterIntakeOfToday = waterIntakeController.getAllIntakesOfToday();
+        WaterIntake totalWaterIntakeOfToday = waterIntakeOfToday.getTotalWaterIntakeOfToday();
 
+        TextView waterIntakeText = mView.findViewById(R.id.waterIntake);
+        waterIntakeText.setText(String.format("%d ML", totalWaterIntakeOfToday.getInTakeInMilliliter()));
     }
 
     private void showToast(String text) {

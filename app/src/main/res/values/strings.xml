@@ -7,4 +7,5 @@
     <string name="add1L">Add 1L</string>
     <string name="custom_amount">Enter custom amount</string>
     <string name="add_custom_amount">Add</string>
+    <string name="water_intake_text">Total water intake today: </string>
 </resources>
