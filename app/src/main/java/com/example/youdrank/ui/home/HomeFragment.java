@@ -74,6 +74,10 @@ public class HomeFragment extends Fragment {
         showToast(String.format("Added %s ml to your water intake!", waterIntakeInMl));
     }
 
+    private void updateTotalWaterInTakeOfToday() {
+
+    }
+
     private void showToast(String text) {
         Context context = getContext();
         int duration = Toast.LENGTH_SHORT;

@@ -7,6 +7,7 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import com.example.youdrank.models.WaterIntake;
+import com.example.youdrank.models.WaterIntakeOfToday;
 import com.example.youdrank.util.database.DatabaseHelper;
 import com.example.youdrank.util.database.DatabaseInfo;
 
@@ -46,6 +47,32 @@ public class WaterIntakeController {
     public ArrayList<WaterIntake> getAllWaterIntake() throws ParseException {
         DatabaseHelper helper = DatabaseHelper.getHelper(context);
         Cursor rs = helper.query(DatabaseInfo.WaterIntake.WATER_INTAKE_TABLE, new String[]{"*"}, null, null, null, null, null);
+        rs.moveToFirst();
+
+        ArrayList<WaterIntake> waterIntakes = new ArrayList<WaterIntake>();
+        while (rs.moveToNext()) {
+            int waterIntakeInMl = rs.getInt(rs.getColumnIndex(DatabaseInfo.WaterIntake.WATER_INTAKE_COLUMN));
+            String createdOnString = rs.getString(rs.getColumnIndex(DatabaseInfo.WaterIntake.CREATED_DATE_COLUMN));
+
+            Date parsedDate = new SimpleDateFormat(this.dateFormat, Locale.ENGLISH).parse(createdOnString);
+            waterIntakes.add(new WaterIntake(waterIntakeInMl, parsedDate));
+        }
+
+        return waterIntakes;
+    }
+
+    public WaterIntakeOfToday getAllIntakesOfToday() throws ParseException {
+        DatabaseHelper helper = DatabaseHelper.getHelper(context);
+
+        DateFormat dateFormat = new SimpleDateFormat(this.dateFormat, Locale.ENGLISH);
+        String todayAsString= dateFormat.format(new Date());
+
+        Cursor rs = helper.query(DatabaseInfo.WaterIntake.WATER_INTAKE_TABLE, new String[]{"*"},  "createdAt = ?", new String[] {todayAsString}, null, null, null);
+
+        return new WaterIntakeOfToday(this.parseDatabaseSelectQuery(rs));
+    }
+
+    private ArrayList<WaterIntake> parseDatabaseSelectQuery(Cursor rs) throws ParseException {
         rs.moveToFirst();
 
         ArrayList<WaterIntake> waterIntakes = new ArrayList<WaterIntake>();
