@@ -14,7 +14,7 @@ public class WaterIntakeOfToday {
     public WaterIntake getTotalWaterIntakeOfToday() {
         WaterIntake totalIntake = new WaterIntake(0, new Date());
         for (WaterIntake waterIntake: this.waterIntakes) {
-            waterIntake.setInTakeInMilliliter(totalIntake.getInTakeInMilliliter() + waterIntake.getInTakeInMilliliter());
+            totalIntake.setInTakeInMilliliter(totalIntake.getInTakeInMilliliter() + waterIntake.getInTakeInMilliliter());
         }
 
         return totalIntake;

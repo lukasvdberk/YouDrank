@@ -23,7 +23,7 @@ import java.util.Locale;
 
 public class WaterIntakeController {
     Context context;
-    private final String dateFormat = "yyyy-mm-dd";
+    private final String dateFormat = "dd-M-yyyy";
 
 
     public WaterIntakeController(Context context) {
@@ -47,7 +47,6 @@ public class WaterIntakeController {
     public ArrayList<WaterIntake> getAllWaterIntake() throws ParseException {
         DatabaseHelper helper = DatabaseHelper.getHelper(context);
         Cursor rs = helper.query(DatabaseInfo.WaterIntake.WATER_INTAKE_TABLE, new String[]{"*"}, null, null, null, null, null);
-        rs.moveToFirst();
 
         ArrayList<WaterIntake> waterIntakes = new ArrayList<WaterIntake>();
         while (rs.moveToNext()) {
@@ -67,14 +66,12 @@ public class WaterIntakeController {
         DateFormat dateFormat = new SimpleDateFormat(this.dateFormat, Locale.ENGLISH);
         String todayAsString= dateFormat.format(new Date());
 
-        Cursor rs = helper.query(DatabaseInfo.WaterIntake.WATER_INTAKE_TABLE, new String[]{"*"},  "createdAt = ?", new String[] {todayAsString}, null, null, null);
+        Cursor rs = helper.query(DatabaseInfo.WaterIntake.WATER_INTAKE_TABLE, new String[]{"*"},  "createdAt=?", new String[] {todayAsString}, null, null, null);
 
         return new WaterIntakeOfToday(this.parseDatabaseSelectQuery(rs));
     }
 
     private ArrayList<WaterIntake> parseDatabaseSelectQuery(Cursor rs) throws ParseException {
-        rs.moveToFirst();
-
         ArrayList<WaterIntake> waterIntakes = new ArrayList<WaterIntake>();
         while (rs.moveToNext()) {
             int waterIntakeInMl = rs.getInt(rs.getColumnIndex(DatabaseInfo.WaterIntake.WATER_INTAKE_COLUMN));
